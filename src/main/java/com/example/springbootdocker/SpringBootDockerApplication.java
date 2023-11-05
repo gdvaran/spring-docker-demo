@@ -13,9 +13,11 @@ import java.util.*;
 @SpringBootApplication
 public class SpringBootDockerApplication {
 
-    List<User> users = new ArrayList<>();
-    users.add(new User(1, "tom"));
-    users.add(new User(2, "jerry"));
+    static List<User> users = new ArrayList<>();
+    static {	
+        users.add(new User(1, "tom"));
+        users.add(new User(2, "jerry"));
+    }
 
     @RequestMapping("/")
     public String home() {
@@ -24,13 +26,13 @@ public class SpringBootDockerApplication {
 
     @GetMapping("/user/{id}")
     public User getUser(int id) {
-        Optional<User> optional = this.users.stream().filter(user -> user.id == id).findFirst();
+        Optional<User> optional = users.stream().filter(user -> user.id == id).findFirst();
         return optional.orElseThrow();
     }
 
     @PutMapping("/user/{id}")
     public User updateUserName(@PathVariable int id, @RequestParam String name) {
-        Optional<User> optional = this.users.stream().filter(user -> user.id == id).findFirst();
+        Optional<User> optional = users.stream().filter(user -> user.id == id).findFirst();
         optional.ifPresent(user -> {
             user.name = name;
         });
