@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM eclipse-temurin:17-jdk-focal
 
+# copy files
+COPY . /app
+
 # set work directory
 WORKDIR /app
 
