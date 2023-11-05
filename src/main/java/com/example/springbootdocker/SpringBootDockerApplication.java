@@ -25,7 +25,7 @@ public class SpringBootDockerApplication {
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(int id) {
+    public User getUser(@PathVariable int id) {
         Optional<User> optional = users.stream().filter(user -> user.id == id).findFirst();
         return optional.orElseThrow();
     }
